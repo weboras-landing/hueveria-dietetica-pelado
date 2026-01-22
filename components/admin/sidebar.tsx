@@ -50,7 +50,7 @@ const navigation = [
     },
 ];
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ closeMobile }: { closeMobile?: () => void }) {
     const pathname = usePathname();
     const router = useRouter();
 
@@ -60,11 +60,15 @@ export default function AdminSidebar() {
         router.refresh();
     };
 
+    const handleNavClick = () => {
+        if (closeMobile) closeMobile();
+    };
+
     return (
         <div className="flex flex-col h-full bg-gray-900 text-white">
             {/* Logo */}
             <div className="p-6 border-b border-gray-800">
-                <Link href="/admin" className="flex items-center gap-3">
+                <Link href="/admin" className="flex items-center gap-3" onClick={handleNavClick}>
                     <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center">
                         <span className="text-2xl font-bold">P</span>
                     </div>
@@ -83,6 +87,7 @@ export default function AdminSidebar() {
                         <Link
                             key={item.name}
                             href={item.href}
+                            onClick={handleNavClick}
                             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
                                     ? "bg-amber-500 text-white"
                                     : "text-gray-300 hover:bg-gray-800 hover:text-white"
