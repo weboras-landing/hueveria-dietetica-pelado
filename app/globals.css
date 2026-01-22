@@ -15,7 +15,8 @@
   --secondary: oklch(0.45 0.10 55);
   --secondary-foreground: oklch(0.98 0.005 85);
   --muted: oklch(0.94 0.01 85);
-  --muted-foreground: oklch(0.45 0.03 50);
+  --muted-foreground: oklch(0.40 0.04 50);
+  --beige: oklch(0.97 0.02 85);
   --accent: oklch(0.45 0.10 55);
   --accent-foreground: oklch(0.98 0.005 85);
   --destructive: oklch(0.577 0.245 27.325);
@@ -120,7 +121,63 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  @apply absolute -top-10 left-4 z-[100] bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-all focus:top-4;
+}
+
+/* Float animation for hero */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out;
+}
+
+/* Pulse animation for cart badge */
+@keyframes cart-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-cart-pulse {
+  animation: cart-pulse 0.3s ease-out;
 }

@@ -1,10 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
     <section className="relative w-full">
-      {/* Hero Image Container */}
-      <div className="relative w-full h-[300px] md:h-[380px] overflow-hidden">
+      {/* Hero Image Container - Dynamic height */}
+      <div className="relative w-full h-[45vh] min-h-[280px] max-h-[420px] md:h-[380px] md:max-h-[450px] overflow-hidden">
         {/* Background Image with overlay */}
         <Image
           src="/images/hero-banner.png"
@@ -14,11 +17,11 @@ export function HeroSection() {
           priority
         />
         {/* Elegant gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-black/20" />
 
         {/* Centered logo with glow effect */}
-        <div className="absolute inset-0 flex items-center justify-center pt-8">
-          <div className="relative w-52 h-52 md:w-72 md:h-72 animate-float">
+        <div className="absolute inset-0 flex items-center justify-center pt-4 md:pt-8">
+          <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-72 md:h-72 animate-float">
             <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl scale-75" />
             <Image
               src="/images/logo-mascot.png"
@@ -31,22 +34,19 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Catalog Title Section with refined styling */}
-      <div className="relative bg-gradient-to-b from-white to-gray-50/50 py-8 text-center">
+      {/* Catalog Title Section with CTA */}
+      <div className="relative bg-gradient-to-b from-white to-gray-50/50 py-6 md:py-8 text-center">
         {/* Decorative accent line */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
-        <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">
-          Catálogo Virtual
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground tracking-tight px-4">
+          Del campo a tu mesa, productos frescos de calidad
         </h1>
-        <p className="mt-2 text-muted-foreground text-[15px] max-w-xs mx-auto">
-          Explorá y comprá online nuestros productos de calidad
-        </p>
 
         {/* Scroll indicator for mobile */}
-        <div className="mt-6 flex justify-center md:hidden">
+        <div className="mt-5 flex justify-center md:hidden">
           <div className="flex flex-col items-center gap-1 text-muted-foreground/60">
-            <span className="text-xs font-medium">Ver categorías</span>
+            <span className="text-xs font-medium">Deslizá para ver más</span>
             <svg className="w-5 h-5 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>

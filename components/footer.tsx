@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden">
       {/* Main footer with gradient */}
-      <div className="bg-gradient-to-b from-primary/5 via-primary/10 to-primary/15 border-t border-primary/10 pt-10 pb-8">
+      <div className="bg-gradient-to-b from-gray-50 via-gray-100/50 to-gray-100 border-t border-gray-200 pt-10 pb-8">
         {/* Decorative pattern */}
         <div className="absolute inset-0 opacity-[0.015] bg-[radial-gradient(circle_at_1px_1px,#000_1px,transparent_0)] bg-[length:20px_20px]" />
 
@@ -16,8 +16,7 @@ export function Footer() {
           <div className="flex flex-col items-center gap-5 text-center">
             {/* Logo with glow */}
             <div className="relative">
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl scale-150" />
-              <div className="relative h-20 w-20 bg-white rounded-full p-2 shadow-lg border border-primary/10">
+              <div className="relative h-20 w-20 bg-white rounded-full p-2 shadow-lg border border-gray-200">
                 <Image
                   src="/images/logo-mascot.png"
                   alt="El Pelado"
@@ -64,7 +63,7 @@ export function Footer() {
       </div>
 
       {/* Copyright bar */}
-      <div className="bg-primary/20 py-4">
+      <div className="bg-gray-200 py-4">
         <div className="container mx-auto px-5">
           <p className="text-center text-xs text-muted-foreground">
             © {new Date().getFullYear()} El Pelado. Todos los derechos reservados.

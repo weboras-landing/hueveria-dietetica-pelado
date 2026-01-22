@@ -23,10 +23,9 @@ const steps = [
 
 export function HowToBuySection() {
   return (
-    <section className="relative py-14 overflow-hidden">
+    <section className="relative py-14 overflow-hidden bg-[#F0E5D8]">
       {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50/80 to-white" />
-      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(circle_at_1px_1px,gray_1px,transparent_0)] bg-[length:24px_24px]" />
+      <div className="absolute inset-0 opacity-[0.4] bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]" />
 
       <div className="container mx-auto px-5 relative">
         <div className="text-center mb-10">

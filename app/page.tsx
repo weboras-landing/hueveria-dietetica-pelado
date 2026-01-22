@@ -21,8 +21,8 @@ export default async function HomePage() {
         <HeroSection />
 
         <main className="container mx-auto px-5 py-12 md:py-16">
-          {/* Categories Section */}
-          <section className="animate-fade-in-up">
+          {/* Categories Section - Beige Background */}
+          <section id="categorias" className="py-12 bg-[#F0E5D8] -mx-5 px-5 animate-fade-in-up scroll-mt-20">
             <div className="text-center mb-10">
               <span className="inline-block text-xs font-bold text-primary/70 uppercase tracking-widest mb-2">
                 Categorías
@@ -31,15 +31,15 @@ export default async function HomePage() {
                 Nuestros Productos
               </h2>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
               {categories.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}
             </div>
           </section>
 
-          {/* Featured Products Section */}
-          <section className="mt-20 md:mt-24">
+          {/* Featured Products Section - White Background */}
+          <section className="py-12 md:py-16">
             <div className="text-center mb-10">
               <span className="inline-block text-xs font-bold text-secondary uppercase tracking-widest mb-2">
                 Destacados

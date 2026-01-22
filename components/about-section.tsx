@@ -2,9 +2,8 @@ import { Leaf, Heart } from "lucide-react";
 
 export function AboutSection() {
   return (
-    <section className="relative py-14 overflow-hidden">
+    <section className="relative py-14 overflow-hidden bg-white">
       {/* Decorative background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
 
       <div className="container mx-auto px-5 relative">
         <div className="mx-auto max-w-2xl text-center">

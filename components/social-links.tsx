@@ -36,18 +36,21 @@ const socialLinks = [
 interface SocialLinksProps {
     className?: string;
     iconSize?: string;
+    compact?: boolean;
 }
 
-export function SocialLinks({ className = "", iconSize = "h-5 w-5" }: SocialLinksProps) {
+export function SocialLinks({ className = "", iconSize = "h-5 w-5", compact = false }: SocialLinksProps) {
+    const buttonSize = compact ? "w-8 h-8" : "w-10 h-10";
+
     return (
-        <div className={`flex items-center gap-3 ${className}`}>
+        <div className={`flex items-center gap-2 ${className}`}>
             {socialLinks.map((social) => (
                 <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 transition-all duration-300 hover:scale-110 hover:shadow-md ${social.color} ${social.bgColor} active:scale-95`}
+                    className={`flex items-center justify-center ${buttonSize} rounded-full bg-white border border-gray-200 text-gray-600 transition-all duration-300 hover:scale-110 hover:shadow-md ${social.color} ${social.bgColor} active:scale-95`}
                     aria-label={social.name}
                 >
                     <social.icon className={iconSize} />
