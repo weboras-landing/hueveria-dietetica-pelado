@@ -7,7 +7,7 @@ export function HeroSection() {
       <div className="relative w-full h-[300px] md:h-[380px] overflow-hidden">
         {/* Background Image with overlay */}
         <Image
-          src="/images/hero-banner.jpg"
+          src="/images/hero-banner.png"
           alt="Background"
           fill
           className="object-cover"
@@ -15,12 +15,6 @@ export function HeroSection() {
         />
         {/* Elegant gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
-
-        {/* White overlay to hide "YOUR LOGO" text at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/98 to-transparent" />
-
-        {/* Top overlay to hide "YOUR LOGO" text at top */}
-        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/40 via-black/20 to-transparent" />
 
         {/* Badge with premium styling */}
         <div className="absolute top-5 left-1/2 -translate-x-1/2 z-10">
@@ -30,9 +24,9 @@ export function HeroSection() {
           </span>
         </div>
 
-        {/* Centered logo with glow effect - ENLARGED to cover placeholder texts */}
+        {/* Centered logo with glow effect */}
         <div className="absolute inset-0 flex items-center justify-center pt-8">
-          <div className="relative w-80 h-80 md:w-96 md:h-96">
+          <div className="relative w-52 h-52 md:w-72 md:h-72">
             <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl scale-75" />
             <Image
               src="/images/logo-mascot.png"
