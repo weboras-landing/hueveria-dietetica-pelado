@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { MessageCircle, MapPin, Clock } from "lucide-react";
+import { MessageCircle } from "lucide-react";
+import { SocialLinks } from "@/components/social-links";
 
-const WHATSAPP_NUMBER = "5491112345678"; // Cambiar por el número real
+const WHATSAPP_NUMBER = "5493516089206";
 
 export function Footer() {
   return (
@@ -36,14 +37,26 @@ export function Footer() {
               </p>
             </div>
 
+            {/* Social Media Links */}
+            <div className="flex flex-col items-center gap-3">
+              <p className="text-sm font-medium text-muted-foreground">Seguinos en nuestras redes</p>
+              <SocialLinks />
+            </div>
+
             {/* WhatsApp CTA */}
             <a
               href={`https://wa.me/${WHATSAPP_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full text-sm font-semibold shadow-lg shadow-green-500/20 hover:shadow-green-500/30 transition-all duration-200 hover:scale-105 active:scale-[0.98]"
+              className="inline-flex items-center gap-2.5 bg-white border-2 border-green-500 text-green-600 px-6 py-3 rounded-full text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 active:scale-[0.98]"
             >
-              <MessageCircle className="h-5 w-5" />
+              <Image
+                src="/images/whatsapp-logo.png"
+                alt="WhatsApp"
+                width={24}
+                height={24}
+                className="rounded-sm"
+              />
               <span>Contactanos por WhatsApp</span>
             </a>
           </div>

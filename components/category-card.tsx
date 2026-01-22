@@ -11,7 +11,9 @@ interface CategoryCardProps {
 export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link href={`/categoria/${category.slug}`} className="block group">
-      <div className="relative overflow-hidden rounded-2xl bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-gray-100/80 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:-translate-y-1 active:scale-[0.98]">
+      <div className="relative overflow-hidden rounded-2xl bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-gray-100/80 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:border-primary/20 hover:-translate-y-1 active:scale-[0.98]">
+        {/* Glow effect on hover */}
+        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
         {/* Tag badge with premium styling */}
         {category.tag && (
           <div className="absolute top-4 right-4 z-20">

@@ -44,16 +44,16 @@ export function HowToBuySection() {
               {/* Numbered icon with gradient */}
               <div className="relative mb-5">
                 {/* Animated ring on hover */}
-                <div className="absolute inset-0 rounded-full bg-primary/10 scale-150 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <div className="absolute inset-0 rounded-full bg-primary/10 scale-150 opacity-0 group-hover:opacity-100 group-hover:scale-[1.8] transition-all duration-500" />
 
                 {/* Step number badge */}
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center text-xs font-bold shadow-md z-10">
+                <div className="absolute -top-1 -right-1 w-7 h-7 bg-secondary text-secondary-foreground rounded-full flex items-center justify-center text-xs font-bold shadow-lg z-10 group-hover:scale-110 transition-transform duration-300">
                   {index + 1}
                 </div>
 
                 {/* Icon container with gradient */}
-                <div className={`relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${step.color} text-white shadow-lg transition-transform duration-300 group-hover:scale-110`}>
-                  <step.icon className="h-7 w-7" />
+                <div className={`relative flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br ${step.color} text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:rotate-3`}>
+                  <step.icon className="h-8 w-8" />
                 </div>
               </div>
 
