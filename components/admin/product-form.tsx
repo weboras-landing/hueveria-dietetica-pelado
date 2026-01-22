@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { createProduct, updateProduct } from "@/app/admin/actions/products";
 import { getCategories } from "@/app/admin/actions/categories";
+import { ImageUpload } from "./image-upload";
 import VariantManager from "./variant-manager";
-import Image from "next/image";
 
 interface Variant {
     id?: string;
@@ -119,36 +119,12 @@ export default function ProductForm({ product }: ProductFormProps) {
                 </select>
             </div>
 
-            {/* Image URL */}
+            {/* Image Upload */}
             <div>
-                <label
-                    htmlFor="image_url"
-                    className="block text-sm font-semibold text-gray-700 mb-2"
-                >
-                    URL de Imagen
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Imagen del Producto
                 </label>
-                <input
-                    type="text"
-                    id="image_url"
-                    name="image_url"
-                    value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                    placeholder="/images/almendras.jpg"
-                />
-                {imageUrl && (
-                    <div className="mt-4">
-                        <p className="text-sm text-gray-600 mb-2">Vista previa:</p>
-                        <div className="relative w-48 h-48 rounded-lg overflow-hidden border border-gray-200">
-                            <Image
-                                src={imageUrl}
-                                alt="Preview"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                    </div>
-                )}
+                <ImageUpload value={imageUrl} onChange={setImageUrl} />
             </div>
 
             {/* Toggles */}
