@@ -11,13 +11,13 @@ const infoItems: InfoItem[] = [
   {
     icon: MapPin,
     title: "Dirección",
-    content: "Consultar por WhatsApp",
+    content: "Mariano Fragueiro 3596",
     gradient: "from-red-500/10 to-orange-500/10",
   },
   {
     icon: Clock,
     title: "Horarios",
-    content: "Lunes a Sábado de 9:00 a 18:00",
+    content: "Lun-Sáb: 9:00-13:30 y 17:00-20:30",
     gradient: "from-blue-500/10 to-cyan-500/10",
   },
   {
