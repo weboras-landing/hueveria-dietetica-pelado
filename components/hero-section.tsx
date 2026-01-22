@@ -16,6 +16,9 @@ export function HeroSection() {
         {/* Elegant gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
 
+        {/* White overlay to hide "YOUR LOGO" text at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white via-white/95 to-transparent" />
+
         {/* Badge with premium styling */}
         <div className="absolute top-5 left-1/2 -translate-x-1/2 z-10">
           <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground px-5 py-2 rounded-full text-sm font-semibold shadow-lg shadow-secondary/30 backdrop-blur-sm border border-white/20">
