@@ -283,16 +283,24 @@ async function seed() {
     // 1. Seed Categories
     console.log("Seeding categories...");
     for (const category of categories) {
-        const { error } = await supabase.from("categories").upsert(
-            {
+        // Check if category exists first
+        const { data: existing } = await supabase
+            .from("categories")
+            .select("id")
+            .eq("slug", category.slug)
+            .single();
+
+        if (!existing) {
+            const { error } = await supabase.from("categories").insert({
                 slug: category.slug,
                 name: category.name,
                 image_url: category.image,
                 tag: category.tag,
-            },
-            { onConflict: "slug" }
-        );
-        if (error) console.error("Error inserting category:", category.name, error);
+            });
+            if (error) console.error("Error inserting category:", category.name, error);
+        } else {
+            console.log("Category already exists:", category.name);
+        }
     }
 
     // 2. Fetch Category IDs map
@@ -304,28 +312,37 @@ async function seed() {
     for (const product of products) {
         const categoryId = categoryMap.get(product.category);
 
-        // Check if it's a "destacados" logic item that needs special handling or if we just want to add it as featured
-        // For now we just insert. If categoryId is undefined, it will be NULL (uncategorized)
-
-        const { data: dbProduct, error: prodError } = await supabase
+        // Check if product already exists
+        const { data: existing } = await supabase
             .from("products")
-            .upsert(
-                {
+            .select("id")
+            .eq("name", product.name)
+            .single();
+
+        let dbProduct: { id: string } | null = null;
+
+        if (!existing) {
+            const { data, error: prodError } = await supabase
+                .from("products")
+                .insert({
                     name: product.name,
                     description: "", // Static data has no description
                     category_id: categoryId || null,
                     image_url: product.image,
                     is_featured: product.category === "destacados",
                     is_active: true,
-                },
-                { onConflict: "name" }
-            )
-            .select("id")
-            .single();
+                })
+                .select("id")
+                .single();
 
-        if (prodError) {
-            console.error("Error inserting product:", product.name, prodError);
-            continue;
+            if (prodError) {
+                console.error("Error inserting product:", product.name, prodError);
+                continue;
+            }
+            dbProduct = data;
+        } else {
+            console.log("Product already exists:", product.name);
+            dbProduct = existing;
         }
 
         if (!dbProduct) continue;
