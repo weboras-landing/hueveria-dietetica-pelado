@@ -1,10 +1,20 @@
+import { createClient } from "@/lib/supabase/client";
+
 export interface Product {
   id: string;
   name: string;
+  description?: string;
   price: number;
   unit: string;
   category: string;
   image: string;
+  variants?: ProductVariant[];
+}
+
+export interface ProductVariant {
+  id: string;
+  unit: string;
+  price: number;
 }
 
 export interface Category {
@@ -15,204 +25,108 @@ export interface Category {
   tag?: string;
 }
 
-export const categories: Category[] = [
-  {
-    id: "1",
-    name: "Huevos",
-    slug: "huevos",
-    image: "/images/categoria-huevos.jpg",
-    tag: "Mas vendido",
-  },
-  {
-    id: "2",
-    name: "Frutos Secos",
-    slug: "frutos-secos",
-    image: "/images/categoria-frutos-secos.jpg",
-    tag: "Stock permanente",
-  },
-  {
-    id: "3",
-    name: "Semillas",
-    slug: "semillas",
-    image: "/images/categoria-semillas.jpg",
-  },
-  {
-    id: "4",
-    name: "Legumbres",
-    slug: "legumbres",
-    image: "/images/categoria-legumbres.jpg",
-    tag: "Stock permanente",
-  },
-];
+export async function getCategories(): Promise<Category[]> {
+  const supabase = createClient();
+  const { data } = await supabase
+    .from("categories")
+    .select("*")
+    .order("created_at", { ascending: true });
 
-export const products: Product[] = [
-  // Huevos
-  {
-    id: "h1",
-    name: "Huevos de Campo x 6",
-    price: 1200,
-    unit: "media docena",
-    category: "huevos",
-    image: "/images/huevos-campo-6.jpg",
-  },
-  {
-    id: "h2",
-    name: "Huevos de Campo x 12",
-    price: 2200,
-    unit: "docena",
-    category: "huevos",
-    image: "/images/huevos-campo-12.jpg",
-  },
-  {
-    id: "h3",
-    name: "Huevos de Campo x 30",
-    price: 5000,
-    unit: "maple",
-    category: "huevos",
-    image: "/images/huevos-campo-30.jpg",
-  },
-  {
-    id: "h4",
-    name: "Huevos Blancos x 12",
-    price: 1800,
-    unit: "docena",
-    category: "huevos",
-    image: "/images/huevos-blancos-12.jpg",
-  },
+  if (!data) return [];
 
-  // Frutos Secos
-  {
-    id: "f1",
-    name: "Almendras",
-    price: 3500,
-    unit: "250g",
-    category: "frutos-secos",
-    image: "/images/almendras.jpg",
-  },
-  {
-    id: "f2",
-    name: "Nueces",
-    price: 3200,
-    unit: "250g",
-    category: "frutos-secos",
-    image: "/images/nueces.jpg",
-  },
-  {
-    id: "f3",
-    name: "Castanas de Caju",
-    price: 4000,
-    unit: "250g",
-    category: "frutos-secos",
-    image: "/images/castanas-caju.jpg",
-  },
-  {
-    id: "f4",
-    name: "Mani Tostado",
-    price: 1500,
-    unit: "500g",
-    category: "frutos-secos",
-    image: "/images/mani-tostado.jpg",
-  },
-  {
-    id: "f5",
-    name: "Avellanas",
-    price: 4500,
-    unit: "250g",
-    category: "frutos-secos",
-    image: "/images/avellanas.jpg",
-  },
-
-  // Semillas
-  {
-    id: "s1",
-    name: "Semillas de Chia",
-    price: 1800,
-    unit: "500g",
-    category: "semillas",
-    image: "/images/semillas-chia.jpg",
-  },
-  {
-    id: "s2",
-    name: "Semillas de Lino",
-    price: 1200,
-    unit: "500g",
-    category: "semillas",
-    image: "/images/semillas-lino.jpg",
-  },
-  {
-    id: "s3",
-    name: "Semillas de Girasol",
-    price: 1000,
-    unit: "500g",
-    category: "semillas",
-    image: "/images/semillas-girasol.jpg",
-  },
-  {
-    id: "s4",
-    name: "Semillas de Sesamo",
-    price: 1400,
-    unit: "500g",
-    category: "semillas",
-    image: "/images/semillas-sesamo.jpg",
-  },
-  {
-    id: "s5",
-    name: "Mix de Semillas",
-    price: 2000,
-    unit: "500g",
-    category: "semillas",
-    image: "/images/mix-semillas.jpg",
-  },
-
-  // Legumbres
-  {
-    id: "l1",
-    name: "Lentejas",
-    price: 1200,
-    unit: "500g",
-    category: "legumbres",
-    image: "/images/lentejas.jpg",
-  },
-  {
-    id: "l2",
-    name: "Garbanzos",
-    price: 1400,
-    unit: "500g",
-    category: "legumbres",
-    image: "/images/garbanzos.jpg",
-  },
-  {
-    id: "l3",
-    name: "Porotos Negros",
-    price: 1300,
-    unit: "500g",
-    category: "legumbres",
-    image: "/images/porotos-negros.jpg",
-  },
-  {
-    id: "l4",
-    name: "Porotos Blancos",
-    price: 1300,
-    unit: "500g",
-    category: "legumbres",
-    image: "/images/porotos-blancos.jpg",
-  },
-  {
-    id: "l5",
-    name: "Arvejas Secas",
-    price: 1100,
-    unit: "500g",
-    category: "legumbres",
-    image: "/images/arvejas-secas.jpg",
-  },
-];
-
-export function getProductsByCategory(slug: string): Product[] {
-  return products.filter((product) => product.category === slug);
+  return data.map((cat: any) => ({
+    id: cat.id,
+    name: cat.name,
+    slug: cat.slug,
+    image: cat.image_url,
+    tag: cat.tag,
+  }));
 }
 
-export function getCategoryBySlug(slug: string): Category | undefined {
-  return categories.find((category) => category.slug === slug);
+export async function getProductsByCategory(slug: string): Promise<Product[]> {
+  const supabase = createClient();
+
+  // Handling "destacados" (featured) separately as it might not be a real category in DB table if we didn't insert it
+  if (slug === "destacados") {
+    const { data, error } = await supabase
+      .from("products")
+      .select(`
+        *,
+        category:categories(*),
+        variants:product_variants(*)
+      `)
+      .eq("is_featured", true)
+      .eq("is_active", true);
+
+    if (error || !data) return [];
+    return mapProducts(data);
+  }
+
+  // Get category by slug first to get ID
+  const { data: category } = await supabase
+    .from("categories")
+    .select("id")
+    .eq("slug", slug)
+    .single();
+
+  if (!category) return [];
+
+  const { data, error } = await supabase
+    .from("products")
+    .select(`
+      *,
+      category:categories(*),
+      variants:product_variants(*)
+    `)
+    .eq("category_id", category.id)
+    .eq("is_active", true);
+
+  if (error || !data) return [];
+
+  return mapProducts(data);
+}
+
+export async function getCategoryBySlug(slug: string): Promise<Category | undefined> {
+  const supabase = createClient();
+  const { data } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (!data) return undefined;
+
+  return {
+    id: data.id,
+    name: data.name,
+    slug: data.slug,
+    image: data.image_url,
+    tag: data.tag,
+  };
+}
+
+function mapProducts(data: any[]): Product[] {
+  return data.map((item) => {
+    // Find default variant or first variant for base price/unit
+    const defaultVariant = item.variants?.find((v: any) => v.is_default) || item.variants?.[0];
+
+    return {
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      // Use default variant price if available, otherwise 0 or base fields if we had them (DB schema moved price to variants usually)
+      // In our seed we put price in variants. 
+      price: defaultVariant ? Number(defaultVariant.price) : 0,
+      unit: defaultVariant ? defaultVariant.unit : "u",
+      category: item.category?.slug || "uncategorized",
+      image: item.image_url,
+      variants: item.variants?.map((v: any) => ({
+        id: v.id,
+        unit: v.unit,
+        price: Number(v.price),
+      })).sort((a: any, b: any) => a.price - b.price), // Sort variants by price
+    };
+  });
 }
 
 export function formatPrice(price: number): string {
@@ -221,3 +135,7 @@ export function formatPrice(price: number): string {
     currency: "ARS",
   }).format(price);
 }
+
+// Remove static arrays exports as they are meant to be replaced
+// export const categories = ...
+// export const products = ...
