@@ -24,7 +24,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
         )}
 
         {/* Category header with refined gradient */}
-        <div className="bg-gradient-to-r from-primary via-primary to-primary/95 px-5 py-3.5 relative overflow-hidden">
+        <div className={`bg-gradient-to-r from-primary via-primary to-primary/95 px-5 py-3.5 relative overflow-hidden ${category.tag ? 'pr-40' : ''}`}>
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] bg-[length:16px_16px]" />
           <h3 className="font-serif text-lg font-bold text-primary-foreground italic relative z-10 tracking-wide">

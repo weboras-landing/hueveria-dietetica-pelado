@@ -9,7 +9,7 @@ export interface CartItem {
 // CAMBIA ESTE NUMERO POR TU NUMERO DE WHATSAPP
 // Formato: codigo de pais + numero sin espacios ni guiones
 // Ejemplo Argentina: 5491112345678
-export const WHATSAPP_NUMBER = "5491112345678";
+export const WHATSAPP_NUMBER = "5493516089206";
 
 export function generateWhatsAppMessage(
   items: CartItem[],
