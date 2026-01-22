@@ -11,26 +11,59 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 const _playfair = Playfair_Display({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Hueveria y Dietetica El Pelado - Catalogo Virtual',
-  description: 'Compra online huevos, frutos secos, semillas y legumbres de la mejor calidad.',
-  generator: 'v0.app',
-  icons: {
-    icon: [
+  title: {
+    default: 'Huevería y Dietética El Pelado | Catálogo Virtual',
+    template: '%s | El Pelado'
+  },
+  description: 'Comprá online huevos frescos, frutos secos, semillas y legumbres de la mejor calidad. Venta por mayor y menor. Envíos a domicilio en Cosquín y zona.',
+  keywords: ['huevería', 'dietética', 'frutos secos', 'huevos frescos', 'semillas', 'legumbres', 'Cosquín', 'El Pelado', 'venta por mayor', 'venta por menor'],
+  authors: [{ name: 'El Pelado' }],
+  creator: 'El Pelado',
+  publisher: 'El Pelado',
+  metadataBase: new URL('https://elpelado.com.ar'),
+  openGraph: {
+    type: 'website',
+    locale: 'es_AR',
+    url: 'https://elpelado.com.ar',
+    title: 'Huevería y Dietética El Pelado | Catálogo Virtual',
+    description: 'Comprá online huevos frescos, frutos secos, semillas y legumbres de la mejor calidad. Venta por mayor y menor.',
+    siteName: 'El Pelado',
+    images: [
       {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
+        url: '/images/logo-mascot.png',
+        width: 1200,
+        height: 630,
+        alt: 'El Pelado - Huevería y Dietética',
       },
     ],
-    apple: '/apple-icon.png',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Huevería y Dietética El Pelado',
+    description: 'Comprá online huevos frescos, frutos secos, semillas y legumbres de la mejor calidad.',
+    images: ['/images/logo-mascot.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
 }
 
 export default function RootLayout({
