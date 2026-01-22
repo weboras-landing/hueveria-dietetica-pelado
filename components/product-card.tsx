@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Plus, ShoppingBag } from "lucide-react";
+import { Plus, ShoppingBag, Check } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-provider";
+import { toast } from "sonner";
 import {
   Select,
   SelectContent,
@@ -24,6 +25,8 @@ export function ProductCard({ product }: ProductCardProps) {
   const [selectedVariantId, setSelectedVariantId] = useState<string>(
     product.variants?.[0]?.id || ""
   );
+  const [isAdding, setIsAdding] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
 
   const selectedVariant = product.variants?.find(
     (v) => v.id === selectedVariantId
@@ -33,19 +36,38 @@ export function ProductCard({ product }: ProductCardProps) {
   const currentUnit = selectedVariant ? selectedVariant.unit : product.unit;
 
   const handleAddToCart = () => {
+    setIsAdding(true);
+
+    // Add to cart
     if (selectedVariant) {
-      // Create a variant product to add to cart
       const variantProduct = {
         ...product,
-        id: selectedVariant.id, // Use variant ID to distinguish in cart
+        id: selectedVariant.id,
         price: selectedVariant.price,
         unit: selectedVariant.unit,
-        name: `${product.name} (${selectedVariant.unit})`, // Optional: append unit to name for clarity in cart
+        name: `${product.name} (${selectedVariant.unit})`,
       };
       addItem(variantProduct);
     } else {
       addItem(product);
     }
+
+    // Show success state
+    setTimeout(() => {
+      setIsAdding(false);
+      setJustAdded(true);
+
+      // Show toast notification
+      toast.success("¡Agregado al carrito!", {
+        description: `${product.name} - ${currentUnit}`,
+        duration: 2000,
+      });
+
+      // Reset success state after animation
+      setTimeout(() => {
+        setJustAdded(false);
+      }, 2000);
+    }, 300);
   };
 
   return (
@@ -100,11 +122,24 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button
             size="sm"
             onClick={handleAddToCart}
+            disabled={isAdding || justAdded}
             aria-label={`Agregar ${product.name} al carrito`}
-            className="h-9 px-3 sm:px-4 rounded-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-md shadow-primary/20 transition-all duration-200 hover:scale-105 active:scale-95"
+            className={`h-9 px-3 sm:px-4 rounded-full shadow-md transition-all duration-300 ${justAdded
+                ? "bg-gradient-to-r from-green-500 to-green-600 shadow-green-500/30 scale-105"
+                : "bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-primary/20 hover:scale-105 active:scale-95"
+              }`}
           >
-            <Plus className="h-4 w-4 sm:mr-1" />
-            <span className="hidden sm:inline text-xs font-semibold">Agregar</span>
+            {justAdded ? (
+              <>
+                <Check className="h-4 w-4 sm:mr-1 animate-in zoom-in duration-300" />
+                <span className="hidden sm:inline text-xs font-semibold">¡Agregado!</span>
+              </>
+            ) : (
+              <>
+                <Plus className={`h-4 w-4 sm:mr-1 ${isAdding ? "animate-spin" : ""}`} />
+                <span className="hidden sm:inline text-xs font-semibold">Agregar</span>
+              </>
+            )}
           </Button>
         </div>
       </div>
