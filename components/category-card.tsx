@@ -16,15 +16,15 @@ export function CategoryCard({ category }: CategoryCardProps) {
         <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
         {/* Tag badge with premium styling */}
         {category.tag && (
-          <div className="absolute top-4 right-4 z-20">
-            <span className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg shadow-secondary/25 tracking-wide uppercase">
+          <div className="absolute top-3 right-3 z-20">
+            <span className="inline-flex items-center bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground px-2 py-1 rounded-md text-[10px] font-bold shadow-md shadow-secondary/20 tracking-wider uppercase">
               {category.tag}
             </span>
           </div>
         )}
 
         {/* Category header with refined gradient */}
-        <div className={`bg-gradient-to-r from-primary via-primary to-primary/95 px-5 py-3.5 relative overflow-hidden ${category.tag ? 'pr-40' : ''}`}>
+        <div className="bg-gradient-to-r from-primary via-primary to-primary/95 px-5 py-3.5 relative overflow-hidden">
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] bg-[length:16px_16px]" />
           <h3 className="font-serif text-lg font-bold text-primary-foreground italic relative z-10 tracking-wide">
