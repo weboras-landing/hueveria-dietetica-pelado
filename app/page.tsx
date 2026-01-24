@@ -8,6 +8,13 @@ import { Footer } from "@/components/footer";
 import { WhatsAppFloatButton } from "@/components/whatsapp-float-button";
 import { getCategories, getProductsByCategory } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export const dynamic = 'force-dynamic';
 
@@ -31,10 +38,27 @@ export default async function HomePage() {
                 Nuestros Productos
               </h2>
             </div>
-            <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-5 sm:gap-6 lg:grid-cols-4">
-              {categories.map((category) => (
-                <CategoryCard key={category.id} category={category} />
-              ))}
+
+            <div className="px-4 md:px-12 relative">
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent className="-ml-2 md:-ml-4">
+                  {categories.map((category) => (
+                    <CarouselItem key={category.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
+                      <div className="p-1">
+                        <CategoryCard category={category} />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden md:flex -left-12" />
+                <CarouselNext className="hidden md:flex -right-12" />
+              </Carousel>
             </div>
           </section>
 
