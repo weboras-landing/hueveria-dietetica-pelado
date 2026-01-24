@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DeleteButton from "@/components/admin/delete-button";
 import ToggleButton from "@/components/admin/toggle-button";
+import { ProductImportDialog } from "@/components/products/product-import-dialog";
 
 export default async function ProductosPage() {
     await requireAdmin();
@@ -21,25 +22,28 @@ export default async function ProductosPage() {
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Productos</h1>
                     <p className="text-gray-600">Gestiona todos los productos de la tienda</p>
                 </div>
-                <Link
-                    href="/admin/productos/nuevo"
-                    className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors inline-flex items-center gap-2"
-                >
-                    <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                <div className="flex items-center gap-3">
+                    <ProductImportDialog />
+                    <Link
+                        href="/admin/productos/nuevo"
+                        className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors inline-flex items-center gap-2"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 4v16m8-8H4"
-                        />
-                    </svg>
-                    Nuevo Producto
-                </Link>
+                        <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 4v16m8-8H4"
+                            />
+                        </svg>
+                        Nuevo Producto
+                    </Link>
+                </div>
             </div>
 
             {/* Stats */}

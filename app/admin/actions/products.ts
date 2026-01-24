@@ -223,5 +223,91 @@ export async function toggleProductFeatured(productId: string, currentValue: boo
         throw new Error("Failed to toggle product featured status");
     }
 
+
     revalidatePath("/admin/productos");
 }
+
+export async function bulkCreateProducts(products: Array<{
+    name: string;
+    description?: string;
+    category?: string;
+    price: number;
+    unit?: string;
+    stock?: number;
+    image_url?: string;
+}>) {
+    const supabase = await createClient();
+    const results = {
+        success: 0,
+        failed: 0,
+        errors: [] as string[],
+    };
+
+    // Fetch all categories once to avoid multiple queries
+    const { data: categories } = await supabase
+        .from("categories")
+        .select("id, name, slug");
+
+    for (const product of products) {
+        try {
+            // Resolve category_id from name or slug
+            let categoryId = null;
+            if (product.category && categories) {
+                const category = categories.find(
+                    (c) =>
+                        c.name.toLowerCase() === product.category?.toLowerCase() ||
+                        c.slug.toLowerCase() === product.category?.toLowerCase()
+                );
+                categoryId = category?.id || null;
+            }
+
+            // Insert product
+            const { data: newProduct, error: productError } = await supabase
+                .from("products")
+                .insert({
+                    name: product.name,
+                    description: product.description || null,
+                    category_id: categoryId,
+                    image_url: product.image_url || null,
+                    is_featured: false,
+                    is_active: true,
+                })
+                .select()
+                .single();
+
+            if (productError) {
+                results.failed++;
+                results.errors.push(`${product.name}: ${productError.message}`);
+                continue;
+            }
+
+            // Insert default variant
+            const { error: variantError } = await supabase
+                .from("product_variants")
+                .insert({
+                    product_id: newProduct.id,
+                    unit: product.unit || "u",
+                    price: product.price,
+                    stock: product.stock || 0,
+                    is_default: true,
+                });
+
+            if (variantError) {
+                results.failed++;
+                results.errors.push(`${product.name} variant: ${variantError.message}`);
+                // Rollback: delete the product
+                await supabase.from("products").delete().eq("id", newProduct.id);
+                continue;
+            }
+
+            results.success++;
+        } catch (error) {
+            results.failed++;
+            results.errors.push(`${product.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
+    }
+
+    revalidatePath("/admin/productos");
+    return results;
+}
+
