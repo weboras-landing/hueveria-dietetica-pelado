@@ -6,6 +6,12 @@ interface CategoryPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Enable dynamic params to allow new categories without rebuild
+export const dynamicParams = true;
+
+// Revalidate every 60 seconds to ensure fresh data
+export const revalidate = 60;
+
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
 
