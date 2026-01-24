@@ -8,6 +8,8 @@ export interface Product {
   unit: string;
   category: string;
   image: string;
+  image_url?: string; // For admin/compatibility
+  is_active?: boolean;
   variants?: ProductVariant[];
 }
 
@@ -15,7 +17,10 @@ export interface ProductVariant {
   id: string;
   unit: string;
   price: number;
+  stock: number;
+  is_default?: boolean;
 }
+
 
 export interface Category {
   id: string;
@@ -124,6 +129,7 @@ function mapProducts(data: any[]): Product[] {
         id: v.id,
         unit: v.unit,
         price: Number(v.price),
+        stock: v.stock || 0,
       })).sort((a: any, b: any) => a.price - b.price), // Sort variants by price
     };
   });

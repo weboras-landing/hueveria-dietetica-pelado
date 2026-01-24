@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createCategory, updateCategory } from "@/app/admin/actions/categories";
-import Image from "next/image";
+import { ImageUpload } from "./image-upload";
 
 interface CategoryFormProps {
     category?: {
@@ -126,36 +126,20 @@ export default function CategoryForm({ category }: CategoryFormProps) {
                 />
             </div>
 
-            {/* Image URL */}
+            {/* Image Upload */}
             <div>
                 <label
                     htmlFor="image_url"
                     className="block text-sm font-semibold text-gray-700 mb-2"
                 >
-                    URL de Imagen
+                    Imagen de la Categoría
                 </label>
-                <input
-                    type="text"
-                    id="image_url"
-                    name="image_url"
+                <ImageUpload
                     value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
-                    placeholder="/images/categoria-frutos-secos.jpg"
+                    onChange={setImageUrl}
+                    bucket="products"
+                    folder="categories"
                 />
-                {imageUrl && (
-                    <div className="mt-4">
-                        <p className="text-sm text-gray-600 mb-2">Vista previa:</p>
-                        <div className="relative w-48 h-48 rounded-lg overflow-hidden border border-gray-200">
-                            <Image
-                                src={imageUrl}
-                                alt="Preview"
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
-                    </div>
-                )}
             </div>
 
             {/* Actions */}

@@ -7,6 +7,7 @@ import { ShoppingCart, Search, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-provider";
 import { SocialLinks } from "@/components/social-links";
+import { SearchBar } from "@/components/search-bar";
 
 interface Category {
   id: string;
@@ -81,6 +82,11 @@ export function Header({ onCartClick, categories = [] }: HeaderProps) {
             </span>
           </Link>
 
+          {/* Search bar - desktop */}
+          <div className="hidden md:flex flex-1 max-w-md mx-4">
+            <SearchBar />
+          </div>
+
           {/* Right side actions */}
           <div className="flex items-center gap-2">
             {/* Social links - desktop only */}
@@ -117,6 +123,11 @@ export function Header({ onCartClick, categories = [] }: HeaderProps) {
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
+        </div>
+
+        {/* Search bar - mobile */}
+        <div className="md:hidden px-4 pb-3">
+          <SearchBar />
         </div>
 
         {/* Search bar removed */}

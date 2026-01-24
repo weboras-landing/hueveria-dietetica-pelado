@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 
 interface DeleteButtonProps {
     id: string;
-    action: (id: string) => Promise<void>;
+    action: (id: string) => Promise<void | { success: boolean; error?: string }>;
     itemName: string;
 }
 

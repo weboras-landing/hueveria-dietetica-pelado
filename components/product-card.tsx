@@ -34,14 +34,16 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const currentPrice = selectedVariant ? selectedVariant.price : product.price;
   const currentUnit = selectedVariant ? selectedVariant.unit : product.unit;
+  const currentStock = selectedVariant ? selectedVariant.stock : 0;
 
   // Check if product is already in cart
   const cartItemId = selectedVariant ? selectedVariant.id : product.id;
   const cartItem = items.find((item) => item.product.id === cartItemId);
   const quantityInCart = cartItem?.quantity || 0;
 
-  // Check stock status (assuming all products are in stock for now, but ready for DB field)
-  const inStock = true; // TODO: Add is_in_stock field to products table
+  // Stock status
+  const inStock = currentStock > 0;
+  const lowStock = currentStock > 0 && currentStock <= 10;
 
   const handleAddToCart = () => {
     if (!inStock) return;
@@ -94,14 +96,19 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Stock badge */}
         <div className="absolute top-2 left-2 z-10">
-          {inStock ? (
-            <span className="inline-flex items-center gap-1 bg-green-500/90 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+          {!inStock ? (
+            <span className="inline-flex items-center bg-red-500/90 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+              Agotado
+            </span>
+          ) : lowStock ? (
+            <span className="inline-flex items-center gap-1 bg-yellow-500/90 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
               <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
-              En stock
+              Pocas unidades
             </span>
           ) : (
-            <span className="inline-flex items-center bg-gray-500/90 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
-              Agotado
+            <span className="inline-flex items-center gap-1 bg-green-500/90 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+              <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+              Disponible
             </span>
           )}
         </div>
@@ -159,10 +166,10 @@ export function ProductCard({ product }: ProductCardProps) {
             disabled={isAdding || justAdded || !inStock}
             aria-label={`Agregar ${product.name} al carrito`}
             className={`h-9 px-3 sm:px-4 rounded-full shadow-md transition-all duration-300 ${!inStock
-                ? "bg-gray-300 cursor-not-allowed"
-                : justAdded
-                  ? "bg-gradient-to-r from-green-500 to-green-600 shadow-green-500/30 scale-105"
-                  : "bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-primary/20 hover:scale-105 active:scale-95"
+              ? "bg-gray-300 cursor-not-allowed"
+              : justAdded
+                ? "bg-gradient-to-r from-green-500 to-green-600 shadow-green-500/30 scale-105"
+                : "bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-primary/20 hover:scale-105 active:scale-95"
               }`}
           >
             {justAdded ? (
